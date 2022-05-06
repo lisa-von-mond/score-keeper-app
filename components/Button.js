@@ -15,14 +15,10 @@ const FancyButton = styled.button`
 
   width: auto;
   padding: 1rem;
-  background: rgb(165, 15, 216);
-  background: linear-gradient(
-    132deg,
-    rgba(165, 15, 216, 1) 0%,
-    rgba(132, 33, 221, 0.9017545391061452) 0%,
-    rgba(193, 156, 30, 0.9296875) 100%
-  );
-  color: white;
+  background-color: #4c4a8f;
+  box-shadow: 5px -5px 0 #fbc8d4;
+  border: none;
+  color: #fbc8d4;
   text-transform: uppercase;
   border-radius: 2rem;
 `;
