@@ -67,10 +67,10 @@ export default function Home() {
       </Head>
 
       <main>
-        <FlexFrame>
-          <CreateGameFrame>
+        <AppFrame>
+          <BasicFrame>
             <CreateGameForm newGame={newGame} />
-          </CreateGameFrame>
+          </BasicFrame>
           <ActiveGamesFrame>
             <ActiveGames
               myGames={myGames}
@@ -78,30 +78,46 @@ export default function Home() {
               decrease={decrease}
             />
           </ActiveGamesFrame>
-        </FlexFrame>
+        </AppFrame>
       </main>
     </div>
   );
 }
 
-const FlexFrame = styled.div`
+const AppFrame = styled.div`
   display: flex;
-  padding: 3rem;
-  gap: 3rem;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  gap: 5vw;
+  width: 100vw;
+  padding: 5vw;
+  color: #4c4a8f;
+
+  @media screen and (min-width: 500px) {
+    gap: 2rem;
+    padding: 2rem;
+  }
 `;
 
-const CreateGameFrame = styled.div`
-  width: 500px;
+const BasicFrame = styled.div`
+  width: 90vw;
+
+  @media screen and (min-width: 500px) {
+    width: 500px;
+  }
+
   display: flex;
-  padding-top: 2rem;
-  border: 2px dotted gray;
-  padding: 1rem;
+  justify-content: flex-start;
 `;
 
 const ActiveGamesFrame = styled.div`
-  width: 500px;
+  width: 90vw;
+
+  @media screen and (min-width: 500px) {
+    width: 500px;
+  }
+
   display: flex;
-  padding-top: 2rem;
-  border: 2px dotted gray;
-  padding: 1rem;
+  flex-direction: column;
 `;
