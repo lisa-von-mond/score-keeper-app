@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
-export function Button({ description, color }) {
-  return <FancyButton color={color}>{description}</FancyButton>;
+export function MyButton({ text, color, click }) {
+  return (
+    <FancyButton onClick={click} color={color}>
+      {text}
+    </FancyButton>
+  );
 }
 
 const FancyButton = styled.button`

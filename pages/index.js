@@ -4,45 +4,57 @@ import { ActiveGames } from "../components/ActiveGames";
 import styled from "styled-components";
 import { useState } from "react";
 import { nanoid } from "nanoid";
+import { MyButton } from "../components/Button";
 
 export default function Home() {
   const [myGames, setMyGames] = useState([]);
 
   function newGame({ gameName, gamePlayers }) {
     const newGame = {
-      game: gameName,
+      nameOfGame: gameName,
       players: gamePlayers.map((name) => ({
         name: name,
         score: 0,
-        id: nanoid,
+        id: nanoid(),
       })),
       isActive: true,
-      gameId: nanoid,
+      gameId: nanoid(),
     };
 
     setMyGames([...myGames, newGame]);
   }
 
   function increase(playerid, gameid) {
-    console.log("click");
-    const anyGameIndex = myGames.findIndex(
-      (element) => element.gameId === gameid
-    );
-    const anyPlayerIndex = myGames[anyGameIndex].players.findIndex(
+    const thisGame = myGames.find((element) => element.gameId === gameid);
+
+    const thisPlayer = thisGame.players.find(
       (element) => element.id === playerid
     );
+    const newScore = thisPlayer.score + 1;
+    const playersNew = thisGame.players.map((element) =>
+      element === thisPlayer ? { ...thisPlayer, score: newScore } : element
+    );
 
+    const thisGameNew = { ...thisGame, players: playersNew };
     setMyGames(
-      myGames.map((element) =>
-        element.index === anyGameIndex
-          ? {
-              ...element,
-              players: element.players.map((element) =>
-                element.index === anyPlayerIndex ? element.score++ : element
-              ),
-            }
-          : element
-      )
+      myGames.map((element) => (element === thisGame ? thisGameNew : element))
+    );
+  }
+
+  function decrease(playerid, gameid) {
+    const thisGame = myGames.find((element) => element.gameId === gameid);
+
+    const thisPlayer = thisGame.players.find(
+      (element) => element.id === playerid
+    );
+    const newScore = thisPlayer.score - 1;
+    const playersNew = thisGame.players.map((element) =>
+      element === thisPlayer ? { ...thisPlayer, score: newScore } : element
+    );
+
+    const thisGameNew = { ...thisGame, players: playersNew };
+    setMyGames(
+      myGames.map((element) => (element === thisGame ? thisGameNew : element))
     );
   }
 
@@ -60,7 +72,11 @@ export default function Home() {
             <CreateGameForm newGame={newGame} />
           </CreateGameFrame>
           <ActiveGamesFrame>
-            <ActiveGames myGames={myGames} increase={increase} />
+            <ActiveGames
+              myGames={myGames}
+              increase={increase}
+              decrease={decrease}
+            />
           </ActiveGamesFrame>
         </FlexFrame>
       </main>

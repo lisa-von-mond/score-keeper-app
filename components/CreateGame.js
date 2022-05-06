@@ -1,6 +1,5 @@
-import { Button } from "./Button";
+import { MyButton } from "./Button";
 import Input from "./Input";
-import styled from "styled-components";
 import { useState } from "react";
 
 const initialFormData = {
@@ -33,7 +32,7 @@ export function CreateGameForm({ newGame }) {
           value={formInput.gamePlayers}
           onChange={handleChange}
         />
-        <Button description="Create game score" />
+        <MyButton text="Create game score" />
       </form>
     </>
   );
