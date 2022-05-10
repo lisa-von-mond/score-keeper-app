@@ -1,42 +1,25 @@
 import styled, {css} from "styled-components";
 import { MyButton } from "./Button";
 
-export function ActiveGames({ myGames, increase, decrease, endGame }) {
+export function History({ myGames }) {
   return (
     <div>
       {myGames.map((game) => (
-        <OneGame key={game.gameId} visible={game.isActive}>
-          <NameDiv>{game.nameOfGame}</NameDiv>
-
+        <HistoryEntry key={game.gameId} visible={game.isActive}>
+          <NameDiv>result of {game.nameOfGame}</NameDiv>
           {game.players.map((element) => (
             <PlayerDiv key={element.id}>
-              <p>{element.name}</p>
-              <Counter>
-                <MyButton
-                  text="dec"
-                  click={() => {
-                    decrease(element.id, game.gameId);
-                  }}
-                />
-                <p>{element.score}</p>
-                <MyButton
-                  text="inc"
-                  click={() => {
-                    increase(element.id, game.gameId);
-                  }}
-                />
-              </Counter>
+              <p>{element.name}: {element.score}</p>
             </PlayerDiv>
           ))}
-          <MyButton text="end game" click={() => {
-                  endGame(game.gameId)}}/>
-        </OneGame>
+          <MyButton text="delete"/>
+        </HistoryEntry>
       ))}
     </div>
   );
 }
 
-const OneGame = styled.div`
+const HistoryEntry = styled.div`
   background-image: linear-gradient(to top, #9795f0 0%, #fbc8d4 100%);
   box-shadow: 5px -5px #9795f0;
   border: 3px solid #9795f0;
@@ -53,8 +36,11 @@ const OneGame = styled.div`
     align-items: space-between;
   }
 
+  p{margin: 0;
+     padding:0;}
+
   ${props =>
-    props.visible === false &&
+    props.visible === true &&
     css`
    display: none;
     `}
@@ -86,8 +72,4 @@ const PlayerDiv = styled.div`
   }
 `;
 
-const Counter = styled.div`
-  font-size: 1.8rem;
-  display: flex;
-  gap: 0.5rem;
-`;
+

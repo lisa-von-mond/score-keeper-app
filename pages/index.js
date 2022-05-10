@@ -4,7 +4,7 @@ import { ActiveGames } from "../components/ActiveGames";
 import styled from "styled-components";
 import { useState } from "react";
 import { nanoid } from "nanoid";
-import { MyButton } from "../components/Button";
+import { History } from "../components/GameHistory";
 
 export default function Home() {
   const [myGames, setMyGames] = useState([]);
@@ -58,6 +58,13 @@ export default function Home() {
     );
   }
 
+  function endGame(gameId){
+    const thisGame = myGames.find((element)=>(element.gameId === gameId))
+    const newGames = myGames.map((element)=>(element === thisGame ? {...element, isActive: false} : element))
+    setMyGames(newGames)
+
+  }
+
   return (
     <div>
       <Head>
@@ -76,8 +83,14 @@ export default function Home() {
               myGames={myGames}
               increase={increase}
               decrease={decrease}
+              endGame = {endGame}
             />
           </ActiveGamesFrame>
+          <HistoryFrame>
+            <History
+              myGames={myGames}
+            />
+          </HistoryFrame>
         </AppFrame>
       </main>
     </div>
@@ -112,6 +125,17 @@ const BasicFrame = styled.div`
 `;
 
 const ActiveGamesFrame = styled.div`
+  width: 90vw;
+
+  @media screen and (min-width: 500px) {
+    width: 500px;
+  }
+
+  display: flex;
+  flex-direction: column;
+`;
+
+const HistoryFrame = styled.div`
   width: 90vw;
 
   @media screen and (min-width: 500px) {
