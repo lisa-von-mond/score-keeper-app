@@ -27,7 +27,7 @@ export function CreateGameForm({ newGame }) {
         labelText="Insert Players"
         id="gamePlayers"
         name="gamePlayers"
-        placeholder="players go here"
+        placeholder="players (separated by comma)"
         type="text"
         value={formInput.gamePlayers}
         onChange={handleChange}

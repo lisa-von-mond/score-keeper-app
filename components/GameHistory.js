@@ -1,7 +1,6 @@
 import styled, {css} from "styled-components";
-import { MyButton } from "./Button";
 
-export function History({ myGames }) {
+export function History({ myGames}) {
   return (
     <div>
       {myGames.map((game) => (
@@ -12,7 +11,6 @@ export function History({ myGames }) {
               <p>{element.name}: {element.score}</p>
             </PlayerDiv>
           ))}
-          <MyButton text="delete"/>
         </HistoryEntry>
       ))}
     </div>
