@@ -21,4 +21,13 @@ const FancyButton = styled.button`
   color: #fbc8d4;
   text-transform: uppercase;
   border-radius: 2rem;
+
+  &:active{
+    transform: scale(95%);
+  }
+
+  &:hover{
+    background-color: #5c5a9f;
+    }
+  }
 `;

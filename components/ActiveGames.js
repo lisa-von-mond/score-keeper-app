@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import { MyButton } from "./Button";
 
-export function ActiveGames({ myGames, increase, decrease }) {
+export function ActiveGames({ myGames, increase, decrease, endGame }) {
   return (
     <div>
       {myGames.map((game) => (
-        <OneGame key={game.gameId}>
+        <OneGame key={game.gameId} visible={game.isActive}>
           <NameDiv>{game.nameOfGame}</NameDiv>
 
           {game.players.map((element) => (
@@ -17,17 +17,21 @@ export function ActiveGames({ myGames, increase, decrease }) {
                   click={() => {
                     decrease(element.id, game.gameId);
                   }}
-                ></MyButton>
-                <p>{element.score}</p>
+                />
+                <Score>
+                  <p>{element.score}</p>
+                </Score>
                 <MyButton
                   text="inc"
                   click={() => {
                     increase(element.id, game.gameId);
                   }}
-                ></MyButton>
+                />
               </Counter>
             </PlayerDiv>
           ))}
+          <MyButton text="end game" click={() => {
+                  endGame(game.gameId)}}/>
         </OneGame>
       ))}
     </div>
@@ -50,7 +54,27 @@ const OneGame = styled.div`
   @media screen and (min-width: 500px) {
     align-items: space-between;
   }
+
+  ${props =>
+    props.visible === false &&
+    css`
+   display: none;
+    `}
+
+animation: appear 0.5s;
+
+@keyframes appear {
+  0% { transform: scale(0%) }
+  80% {  transform: scale(105%)}
+  100% { transform: scale (100%) }
+}
 `;
+
+const Score = styled.div`
+display:flex;
+justify-content: center;
+width:2rem;`
+
 
 const NameDiv = styled.div`
   font-size: 1.8rem;

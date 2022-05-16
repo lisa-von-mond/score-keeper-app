@@ -1,13 +1,17 @@
 import Head from "next/head";
 import { CreateGameForm } from "../components/CreateGame";
 import { ActiveGames } from "../components/ActiveGames";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import { useState } from "react";
 import { nanoid } from "nanoid";
-import { MyButton } from "../components/Button";
+import { History } from "../components/GameHistory";
 
 export default function Home() {
   const [myGames, setMyGames] = useState([]);
+  const numberOfActiveGames = (myGames.filter(element => element.isActive === true)).length
+  const numberOfFinishedGames = (myGames.filter(element => element.isActive === false)).length
+
+  console.log(myGames)
 
   function newGame({ gameName, gamePlayers }) {
     const newGame = {
@@ -58,6 +62,23 @@ export default function Home() {
     );
   }
 
+  function endGame(gameId){
+    const thisGame = myGames.find((element)=>(element.gameId === gameId))
+    const newGames = myGames.map((element)=>(element === thisGame ? {...element, isActive: false} : element))
+    setMyGames(newGames)
+
+  }
+
+  function deleteGame(thisGameId){
+    let currentGames = myGames
+    const thisGameIndex = currentGames.find((element)=>(element.gameId === thisGameId))
+    currentGames.splice(thisGameIndex,1)
+    setMyGames(currentGames)
+  }
+
+
+  console.log(myGames)
+
   return (
     <div>
       <Head>
@@ -72,12 +93,20 @@ export default function Home() {
             <CreateGameForm newGame={newGame} />
           </BasicFrame>
           <ActiveGamesFrame>
+            <ActiveGamesHeadline visible={numberOfActiveGames}>Active Games</ActiveGamesHeadline>
             <ActiveGames
               myGames={myGames}
               increase={increase}
               decrease={decrease}
+              endGame = {endGame}
             />
           </ActiveGamesFrame>
+          <HistoryFrame>
+          <HistoryHeadline visible={numberOfFinishedGames}>History</HistoryHeadline>
+            <History
+              myGames={myGames}
+            />
+          </HistoryFrame>
         </AppFrame>
       </main>
     </div>
@@ -121,3 +150,54 @@ const ActiveGamesFrame = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+const HistoryFrame = styled.div`
+  width: 90vw;
+
+  @media screen and (min-width: 500px) {
+    width: 500px;
+  }
+
+  display: flex;
+  flex-direction: column;
+`;
+
+const ActiveGamesHeadline = styled.h2`
+align-self: center;
+font-size: 2rem;
+text-transform: uppercase;
+margin-top: 0;
+margin-bottom: 1rem;
+
+${props =>
+  props.visible === 0 &&
+  css`
+ display: none;
+  `}
+
+animation: fade 1s;
+@keyframes fade {
+  0% { opacity:0% }
+  100% { opacity:100%}
+}
+`
+
+const HistoryHeadline = styled.h2`
+align-self: center;
+font-size: 2rem;
+text-transform: uppercase;
+margin-top: 0;
+margin-bottom: 1rem;
+
+${props =>
+  props.visible === 0 &&
+  css`
+ display: none;
+  `}
+
+animation: fade 1s;
+@keyframes fade {
+  0% { opacity:0% }
+  100% { opacity:100%}
+}
+`

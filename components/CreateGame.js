@@ -21,16 +21,18 @@ export function CreateGameForm({ newGame }) {
         type="text"
         value={formInput.gameName}
         onChange={handleChange}
+        required="true"
       />
 
       <Input
         labelText="Insert Players"
         id="gamePlayers"
         name="gamePlayers"
-        placeholder="players go here"
+        placeholder="players (separated by comma)"
         type="text"
         value={formInput.gamePlayers}
         onChange={handleChange}
+        required="true"
       />
       <MyButton text="Create game score" />
     </GameForm>
