@@ -18,7 +18,9 @@ export function ActiveGames({ myGames, increase, decrease, endGame }) {
                     decrease(element.id, game.gameId);
                   }}
                 />
-                <p>{element.score}</p>
+                <Score>
+                  <p>{element.score}</p>
+                </Score>
                 <MyButton
                   text="inc"
                   click={() => {
@@ -59,7 +61,20 @@ const OneGame = styled.div`
    display: none;
     `}
 
+animation: appear 0.5s;
+
+@keyframes appear {
+  0% { transform: scale(0%) }
+  80% {  transform: scale(105%)}
+  100% { transform: scale (100%) }
+}
 `;
+
+const Score = styled.div`
+display:flex;
+justify-content: center;
+width:2rem;`
+
 
 const NameDiv = styled.div`
   font-size: 1.8rem;

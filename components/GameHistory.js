@@ -43,6 +43,13 @@ const HistoryEntry = styled.div`
    display: none;
     `}
 
+  animation: appear 0.5s;
+  @keyframes appear {
+      0% { transform: scale(0%) }
+      80% {  transform: scale(105%)}
+      100% { transform: scale (100%) }
+    }
+
 `;
 
 const NameDiv = styled.div`

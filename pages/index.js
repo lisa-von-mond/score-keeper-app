@@ -174,6 +174,12 @@ ${props =>
   css`
  display: none;
   `}
+
+animation: fade 1s;
+@keyframes fade {
+  0% { opacity:0% }
+  100% { opacity:100%}
+}
 `
 
 const HistoryHeadline = styled.h2`
@@ -188,6 +194,10 @@ ${props =>
   css`
  display: none;
   `}
+
+animation: fade 1s;
+@keyframes fade {
+  0% { opacity:0% }
+  100% { opacity:100%}
+}
 `
-
-

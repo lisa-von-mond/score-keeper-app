@@ -21,6 +21,7 @@ export function CreateGameForm({ newGame }) {
         type="text"
         value={formInput.gameName}
         onChange={handleChange}
+        required="true"
       />
 
       <Input
@@ -31,6 +32,7 @@ export function CreateGameForm({ newGame }) {
         type="text"
         value={formInput.gamePlayers}
         onChange={handleChange}
+        required="true"
       />
       <MyButton text="Create game score" />
     </GameForm>
